@@ -1,0 +1,86 @@
+id: lidarModule_OFDM_Demod
+label: OFDM_Demod
+category: '[lidarModule]'
+
+templates:
+  imports: from gnuradio import lidarModule
+  make: lidarModule.OFDM_Demod(${samp_rate}, ${q}, ${N}, ${cplen}, ${data_carriers}, ${pilot_carriers}, ${seed}, ${debug}, ${len_tag_key}, ${payload_len}, ${num_data_pkt})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+- id: samp_rate
+  label: Sampling Rate
+  dtype: float
+  default: 20e6
+- id: q
+  label: ZC Order
+  dtype: int
+  default: 4
+- id: N
+  label: FFT Length
+  dtype: int
+  default: 512
+- id: cplen
+  label: CP Length
+  dtype: int
+  default: 64
+- id: data_carriers
+  label: Data Subcarriers
+  dtype: int_vector
+  default: ()
+- id: pilot_carriers
+  label: Pilot Subcarriers
+  dtype: int_vector
+  default: ()
+- id: seed
+  label: RNG Seed
+  dtype: int
+  default: 10
+- id: debug
+  label: Debug Mode
+  dtype: bool
+  options: ['False', 'True']
+  option_labels: ['No', 'Yes']
+- id: len_tag_key
+  label: Length Tag Key
+  dtype: string
+- id: payload_len
+  label: Payload Length
+  dtype: int
+  default: 1206
+- id: num_data_pkt
+  label: Number of Data Packets
+  dtype: int
+  default: 11
+#- id: ...
+#  label: ...
+#  dtype: ...
+
+#  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
+#  Keys include:
+#      * label (an identifier for the GUI)
+#      * domain (optional - stream or message. Default is stream)
+#      * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#      * vlen (optional - data stream vector length. Default is 1)
+#      * optional (optional - set to 1 for optional inputs. Default is 0)
+inputs:
+- label: in
+  domain: stream
+  dtype: complex
+
+outputs:
+- label: out
+  domain: stream
+  dtype: byte
+- label: out
+  domain: stream
+  dtype: complex
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1
